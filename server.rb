@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'nokogiri'
-require 'open-uri'
+require 'eat'
 require 'json'
 
 get '/hi' do
@@ -10,7 +10,7 @@ end
 
 get '/slickdeals' do
   data = []
-  doc = Nokogiri::HTML(open('http://slickdeals.net/'))
+  doc = Nokogiri::HTML(eat('http://slickdeals.net/'))
   
   doc.search('a[id^=deal_header]').each do |link| 
     title = ""
