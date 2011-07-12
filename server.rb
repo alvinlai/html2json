@@ -24,3 +24,13 @@ get '/slickdeals' do
   data.to_json
 end
 
+get '/edmw' do
+  data = []
+  doc = Nokogiri::HTML(eat('http://forums.hardwarezone.com.sg/forumdisplay.php?f=16', :timeout => 5))
+  
+  doc.search('a[id^=thread_title]').each do |link| 
+    data << {:title => link.content.strip, :link => "http://forums.hardwarezone.com.sg/" + link["href"]}
+  end
+  
+  data.to_json
+end
