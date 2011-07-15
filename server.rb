@@ -29,7 +29,7 @@ get '/edmw' do
   doc = Nokogiri::HTML(eat('http://forums.hardwarezone.com.sg/forumdisplay.php?f=16', :timeout => 5))
   
   doc.search('a[id^=thread_title]').each do |link| 
-    data << {:title => link.content.strip, :link => "http://forums.hardwarezone.com.sg/" + link["href"]}
+    data << {:title => link.content.strip, :link => "http://forums.hardwarezone.com.sg/" + link["href"].gsub(/(s=[^\&]+)/, "")}
   end
   
   data.to_json
